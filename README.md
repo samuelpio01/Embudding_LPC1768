@@ -6,9 +6,9 @@ Setting up Keil
 	- On the right half of this same page, on TAB Device specific you will see Install option, this means it is set to install
 	- Click
 
-![Alt text](https://github.com/samuelpio01/Embudding_LPC1768/blob/GS_Sachin/select1.png)
+![Alt text](https://github.com/samuelpio01/Embudding_LPC1768/blob/GS_Sachin/select1.png)<br>
 *Select Option From Keil.jpg*
-![Alt text](https://github.com/samuelpio01/Embudding_LPC1768/blob/GS_Sachin/select2.png)
+![Alt text](https://github.com/samuelpio01/Embudding_LPC1768/blob/GS_Sachin/select2.jpg)<br>
 *Select Board.jpg*
 
 
@@ -62,5 +62,5 @@ hit start.
 5a) At the bottom a message indicating the progress will be shown and once completed it will show Finished.
 6) Press SW3 - reset the boards and the program is runnning.
 
-![Alt text](https://github.com/samuelpio01/Embudding_LPC1768/blob/GS_Sachin/Flashmagic.jpg)
+![Alt text](https://github.com/samuelpio01/Embudding_LPC1768/blob/GS_Sachin/Flashmagic.jpg)<br>
 *Flash Magic.jpg*
