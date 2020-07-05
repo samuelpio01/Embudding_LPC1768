@@ -6,10 +6,11 @@ Setting up Keil
 	- On the right half of this same page, on TAB Device specific you will see Install option, this means it is set to install
 	- Click
 
-![Alt text](https://github.com/hosamanisachin/IOT_VIsual-Studio-Code/blob/IOT/Debugg_window.png)
-*Debugg_window.jpg*
-![Alt text](https://github.com/hosamanisachin/IOT_VIsual-Studio-Code/blob/IOT/Debugg_window.png)
-*Debugg_window.jpg*
+![Alt text](https://github.com/samuelpio01/Embudding_LPC1768/blob/GS_Sachin/select1.png)
+*Select Option From Keil.jpg*
+![Alt text](https://github.com/samuelpio01/Embudding_LPC1768/blob/GS_Sachin/select2.png)
+*Select Board.jpg*
+
 
 -----------------------------------------------------------------------------------------------
 -----------------------------------------------------------------------------------------------
@@ -34,8 +35,6 @@ NOTE: These all comes under source group 1 branch in keil
 6a) Option - Target-> Create hex file should be marked.
 7) Compile -> Resolve all errors and warning if any
 8) Create HEX file
-
-
 
 
 -----------------------------------------------------------------------------------------------
@@ -63,4 +62,5 @@ hit start.
 5a) At the bottom a message indicating the progress will be shown and once completed it will show Finished.
 6) Press SW3 - reset the boards and the program is runnning.
 
-[img]
+![Alt text](https://github.com/samuelpio01/Embudding_LPC1768/blob/GS_Sachin/Flashmagic.jpg)
+*Flash Magic.jpg*
