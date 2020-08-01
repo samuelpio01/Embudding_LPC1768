@@ -3,8 +3,8 @@
 int main (void)
 {	    			
 	SystemInit();	
-	lcdinit();
-	lcd_send_byte(LCD_CMD, LCD_START_LINE_1); // to cmd register line 1
+	Lcd_Init();
+	lcd_send_byte(LCD_CMD, LCD_START_LINE_1);
 	lcd_send_byte(LCD_DATA, 'E');  
 	lcd_send_byte(LCD_DATA, 'M');
 	lcd_send_byte(LCD_DATA, 'B');
