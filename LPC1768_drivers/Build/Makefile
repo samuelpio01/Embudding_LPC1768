@@ -3,6 +3,9 @@
 # Project structure paths and variables
 ######################################################################################
 
+MAJOR_VER =1
+MINOR_VER =0 
+
 # hex or bin file output
 BIN=0
 HEX=1
@@ -13,6 +16,10 @@ SERIAL_PORT=/dev/ttyUSB0
 BAUD_RATE=38400
 # Crystal speed in Khz
 CPU_CLOCK=12000 
+
+######################################################################################
+# All directory paths will be here
+######################################################################################
 
 BUILD_DIR=.
 SOURCE_DIR=../Source
@@ -34,14 +41,50 @@ VGA_DIR=$(SOURCE_DIR)/VGA
 WDT_DIR=$(SOURCE_DIR)/WDT
 PWM_DIR=$(SOURCE_DIR)/PWM
 CAN_DIR=$(SOURCE_DIR)/CAN
-
-OBJ_FILES=	$(SOURCE_DIR)/main.o\
-			$(LCD_DIR)/lcd.o\
-			$(CORE_SRC_DIR)/startup_LPC17xx.o\
-			$(CORE_SRC_DIR)/system_LPC17xx.o
+UTILITY_DIR=$(SOURCE_DIR)/Utilities
 
 
+######################################################################################
+# Object files will be written here
+######################################################################################
+OBJ_FILES=	$(SOURCE_DIR)/main.o \
+			$(LCD_DIR)/lcd.o \
+			$(CORE_SRC_DIR)/startup_LPC17xx.o \
+			$(CORE_SRC_DIR)/system_LPC17xx.o \
+			$(UTILITY_DIR)/utilities.o
+			
+######################################################################################
+# Include paths will be written here 
+######################################################################################
+PROJ_INCLUDE_PATHS=	-I$(LCD_DIR) \
+					-I$(CORE_INC_DIR) \
+					-I$(GPIO_DIR) \
+					-I$(TIMER_DIR) \
+					-I$(UTILITY_DIR)
+					
+					
+######################################################################################
+# Search paths
+######################################################################################
 
+#Clear previously search paths specified with vpath directives
+vpath
+
+vpath %.c $(SOURCE_DIR) \
+		$(LCD_DIR) \
+		$(CORE_SRC_DIR) \
+		$(CORE_SRC_DIR) \
+		$(UTILITY_DIR)
+			
+vpath %.h $(SOURCE_DIR) \
+		$(LCD_DIR) \
+		$(CORE_INC_DIR) \
+		$(CORE_SRC_DIR) \
+		$(UTILITY_DIR)
+		
+vpath %.s $(BUILD_DIR)
+
+vpath %.o $(OUTPUT_DIR)/binaries
 ######################################################################################
 # GNU GCC ARM Embeded Toolchain base directories and binaries 
 ######################################################################################
@@ -105,7 +148,7 @@ OPTIM_LEVEL       =
 LINKER_SCRIPT     = $(BUILD_DIR)/LPC1768.ld
 PROJECT_OBJECTS   = $(OBJ_FILES)
 PROJECT_OBJECTS   +=
-PROJECT_INC_PATHS = -I$(LCD_DIR)
+PROJECT_INC_PATHS = $(PROJ_INCLUDE_PATHS)
 PROJECT_LIB_PATHS = -L$(CORE_INC_DIR)
 PROJECT_LIBRARIES =
 PROJECT_SYMBOLS   = -DTOOLCHAIN_GCC_ARM -DNO_RELOC='0'  
@@ -115,7 +158,7 @@ PROJECT_SYMBOLS   = -DTOOLCHAIN_GCC_ARM -DNO_RELOC='0'
 # Main makefile system configuration
 ######################################################################################
 SYS_OBJECTS = 
-SYS_INC_PATHS = -I. -I$(GCC_INC) 
+SYS_INC_PATHS = -I$(PROJ_INCLUDE_PATHS) -I$(GCC_INC) 
 SYS_LIB_PATHS = -L$(MCU_LIB_PATH)
 ifeq (OPTIMIZE_FOR, SIZE)
 SYS_LIBRARIES = -lstdc++_s -lsupc++_s -lm -lc_s -lg_s -lnosys
@@ -149,7 +192,7 @@ CC_FLAGS = $(MCU_CC_FLAGS) -c $(CC_OPTIM_FLAGS) $(CC_DEBUG_FLAGS) -fno-common -f
 LD_FLAGS = $(MCU_CC_FLAGS) -Wl,--gc-sections $(SYS_LD_FLAGS) -Wl,-Map=$(PROJECT).map 
 LD_SYS_LIBS = $(SYS_LIBRARIES)
 
-BULD_TARGET = $(PROJECT)
+BULD_TARGET = $(OUTPUT_DIR)/$(PROJECT)
 
 
 ############################################################################### 
@@ -181,9 +224,7 @@ $(BULD_TARGET).bin: $(BULD_TARGET).elf
 
 # run as "sudo make program"
 program:
-ifeq(OUTPUT_FILE_FORMAT,BIN)
 	echo "flashing program : $(PROJECT).bin"
-	lpc21isp -control -bin ./$(PROJECT).bin $(SERIAL_PORT) $(BAUD_RATE) $(CPU_CLOCK)
-endif
+	lpc21isp -control -bin $(BULD_TARGET).bin $(SERIAL_PORT) $(BAUD_RATE) $(CPU_CLOCK)
 	echo "Flashing complete"
 
